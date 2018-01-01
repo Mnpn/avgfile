@@ -22,5 +22,15 @@ fn inner_main() -> Result<(), Error> {
         .get_matches();
 
     let mut file = File::open(matches.value_of("file").unwrap())?;
+    
+    let mut total = 0;
+    let mut len = 0;
+    for byte in file.bytes() {
+        total += byte?;
+        len += 1;
+    }
+
+    let output = if len == 0 { 0 } else { total / len };
+    
     Ok(())
 }
