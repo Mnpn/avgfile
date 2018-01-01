@@ -36,6 +36,9 @@ fn inner_main() -> Result<(), Error> {
     // Prevent dividing by zero by making output 0 is the total is 0.
     let output = if len == 0 { 0 } else { total / len };
     
-    // Everything is alright!
+    // Print the output.
+    println!("{}", output);
+    
+    // Everything is alright! Well done, code!
     Ok(())
 }
