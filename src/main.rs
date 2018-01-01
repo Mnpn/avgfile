@@ -17,6 +17,7 @@ fn inner_main() -> Result<(), Error> {
         .author(crate_authors!())
         .arg(Arg::with_name("file")
             .help("The file to read.")
+            .required(true)
             .index(1))
         .get_matches();
 
