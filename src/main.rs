@@ -1,7 +1,7 @@
 #[macro_use]
 extern crate clap;
 use clap::{App, Arg};
-use std::io::Error;
+use std::io::{Error, Read};
 use std::fs::File;
 
 fn main() {
@@ -38,7 +38,7 @@ fn inner_main() -> Result<(), Error> {
     
     // Print the output.
     println!("{}", output);
-    
+
     // Everything is alright! Well done, code!
     Ok(())
 }
