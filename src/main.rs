@@ -29,7 +29,8 @@ fn inner_main() -> Result<(), Error> {
         total += byte?;
         len += 1;
     }
-
+    
+    // Prevent dividing by zero by making output 0 is the total is 0.
     let output = if len == 0 { 0 } else { total / len };
     
     Ok(())
