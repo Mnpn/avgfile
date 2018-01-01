@@ -4,3 +4,5 @@ version = "0.1.0"
 authors = ["Martin Persson <mnpn03@gmail.com>"]
 
 [dependencies]
+clap = "2.29.0"
+failure = "0.1.1"
