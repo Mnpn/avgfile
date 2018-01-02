@@ -21,23 +21,54 @@ fn inner_main() -> Result<(), Error> {
             .help("The file to read.")
             .required(true) // Make argument required.
             .index(1))
+        // Create arguments
+        .arg(Arg::with_name("total")
+            .help("Calculate the total amount of bytes in file.")
+            .short("t")
+            .long("total"))
+        .arg(Arg::with_name("search")
+            .help("Search for number of occurences of specified value.")
+            .short("s")
+            .long("search")
+            .takes_value(true)) // Make --search take an argument to search for.
+        .arg(Arg::with_name("unique")
+            .help("List amount of unique bytes.")
+            .short("u")
+            .long("unique"))
         .get_matches();
 
+    // Define variables.
     // Open file from argument.
-    let file = File::open(matches.value_of("file").unwrap())?;
-    
-    let mut total: u64 = 0;
-    let mut len = 0;
+    let file_name = matches.value_of("file").unwrap();
+    let file = File::open(&file_name)?;
+    let search = value_t!(matches, "search", u8).ok();
+    let mut total: usize = 0;
+    let mut len: usize = 0;
+    let mut occurences: usize = 0;
+
     for byte in file.bytes() {
-        total += byte? as u64;
+        let byte = byte?;
+        total += byte as usize;
         len += 1;
+        // Search for occurences of byte in file.
+        if Some(byte) == search {
+            occurences += 1;
+        }
     }
 
-    // Prevent dividing by zero by making output 0 is the total is 0.
-    let output = if len == 0 { 0 } else { total / len };
+    if matches.is_present("total") {
+        // Print total bytes in file.
+        println!("Total bytes in {}: {}.", file_name, total);
+    } else if let Some(search) = search {
+        // Print number of occurences in file.
+        println!("Found {} bytes matching {} in {}.", occurences, search, file_name);
+    } else {
+        // Prevent dividing by zero by making output 0 is the total is 0.
+        let output = if len == 0 { 0 } else { total / len };
     
-    // Print the output.
-    println!("File's average byte is {}.", output);
+        // Print the output.
+        println!("Average byte of {} is {}.", file_name, output);
+    }
 
     // Everything is alright! Well done, code!
     Ok(())
