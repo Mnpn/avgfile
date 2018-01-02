@@ -7,7 +7,7 @@ use std::fs::File;
 fn main() {
     // If any error would occur in inner_main(), print the error.'
     if let Err(err) = inner_main() {
-        eprintln!("An error occured: {}", err);
+        eprintln!("{}", err);
     }
 }
 
@@ -41,7 +41,12 @@ fn inner_main() -> Result<(), Error> {
     // Open file from argument.
     let file_name = matches.value_of("file").unwrap();
     let file = File::open(&file_name)?;
+
     let search = value_t!(matches, "search", u8).ok();
+    let is_unique  = matches.is_present("unique");
+    let is_total   = matches.is_present("total");
+    let is_average = search.is_none() && !is_unique;
+
     let mut total: usize = 0;
     let mut len: usize = 0;
     let mut occurences: usize = 0;
@@ -49,30 +54,36 @@ fn inner_main() -> Result<(), Error> {
 
     for byte in file.bytes() {
         let byte = byte?;
-        total += byte as usize;
-        len += 1;
+
+        // Get the average
+        if is_average {
+            total += byte as usize;
+            len += 1;
+        }
         // Search for occurences of byte in file.
         if Some(byte) == search {
             occurences += 1;
         }
         // Search for unique bytes.
-        if let Err(index) = unique.binary_search(&byte) {
-            unique.insert(index, byte)
+        if is_unique {
+            if let Err(index) = unique.binary_search(&byte) {
+                unique.insert(index, byte)
+            }
         }
     }
 
-    if matches.is_present("total") {
-        // Print total bytes in file.
-        println!("Total bytes in {}: {}.", file_name, total);
+    if is_total {
+        // Print total sum of all bytes in the file.
+        println!("Total sum of all bytes in {} in {}.", file_name, total);
     } else if let Some(search) = search {
-        // Print number of occurences in file.
+        // Print number of occurences in the file.
         println!("Found {} bytes matching {} in {}.", occurences, search, file_name);
-    } else if matches.is_present("unique") {
+    } else if is_unique {
         println!("Found {} unique bytes in {}.", unique.len(), file_name);
     } else {
         // Prevent dividing by zero by making output 0 is the total is 0.
         let output = if len == 0 { 0 } else { total / len };
-    
+
         // Print the output.
         println!("Average byte of {} is {}.", file_name, output);
     }
