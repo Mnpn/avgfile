@@ -21,7 +21,13 @@ Then you simply build it by running `cargo build --release`.
 ```
 $ avgfile /path/to/desired.file
 ```
-
+`$ avgfile -t ` - Print the total amount of bytes in a file.
+`$ avgfile -s <byte>` - Search for a byte in a file.
+`$ avgfile -u` - Print the number of unique bytes in a file.
+To get more help, run
+```
+$ avgfile -h
+```
 ### Contribution
 To contribute to the project, simply create a [Pull Request](https://github.com/Mnpn03/avgfile/pulls) or an [Issue](https://github.com/Mnpn03/avgfile/issues).
 
