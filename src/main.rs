@@ -45,6 +45,7 @@ fn inner_main() -> Result<(), Error> {
     let mut total: usize = 0;
     let mut len: usize = 0;
     let mut occurences: usize = 0;
+    let mut unique = Vec::new();
 
     for byte in file.bytes() {
         let byte = byte?;
@@ -54,6 +55,10 @@ fn inner_main() -> Result<(), Error> {
         if Some(byte) == search {
             occurences += 1;
         }
+        // Search for unique bytes.
+        if let Err(index) = unique.binary_search(&byte) {
+            unique.insert(index, byte)
+        }
     }
 
     if matches.is_present("total") {
@@ -62,6 +67,8 @@ fn inner_main() -> Result<(), Error> {
     } else if let Some(search) = search {
         // Print number of occurences in file.
         println!("Found {} bytes matching {} in {}.", occurences, search, file_name);
+    } else if matches.is_present("unique") {
+        println!("Found {} unique bytes in {}.", unique.len(), file_name);
     } else {
         // Prevent dividing by zero by making output 0 is the total is 0.
         let output = if len == 0 { 0 } else { total / len };
