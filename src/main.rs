@@ -74,7 +74,7 @@ fn inner_main() -> Result<(), Error> {
 
     if is_total {
         // Print total sum of all bytes in the file.
-        println!("Total sum of all bytes in {} in {}.", file_name, total);
+        println!("Total sum of all bytes in {}: {}.", file_name, total);
     } else if let Some(search) = search {
         // Print number of occurences in the file.
         println!("Found {} bytes matching {} in {}.", occurences, search, file_name);
