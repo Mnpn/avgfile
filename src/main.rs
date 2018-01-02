@@ -12,8 +12,8 @@ fn main() {
 }
 
 fn inner_main() -> Result<(), Error> {
-	// clap app creation, with macros that read project information from Cargo.toml.
-	let matches = App::new(crate_name!())
+    // clap app creation, with macros that read project information from Cargo.toml.
+    let matches = App::new(crate_name!())
         .version(crate_version!())
         .about(crate_description!())
         .author(crate_authors!())
