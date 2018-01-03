@@ -5,7 +5,7 @@ use std::io::{Error, Read};
 use std::fs::File;
 
 fn main() {
-    // If any error would occur in inner_main(), print the error.'
+    // If any error would occur in inner_main(), print the error.
     if let Err(err) = inner_main() {
         eprintln!("{}", err);
     }
