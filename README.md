@@ -1,12 +1,5 @@
-# avgfile [![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg?style=flat-square)](https://paypal.me/mnpn03/)
-
+# avgfile
 Avgfile is a small and simple tool made in [Rust](https://www.rust-lang.org/) that calculates the average byte in a file.
-
-### ToC - Table of Content
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contribution](#contribution)
-- [License](#license)
 
 ### Installation
 If you don't want to compile the thing yourself, download the latest release [here](https://github.com/Mnpn03/avgfile/releases).
@@ -32,7 +25,7 @@ To get more help, run
 $ avgfile -h
 ```
 ### Contribution
-To contribute to the project, simply create a [Pull Request](https://github.com/Mnpn03/avgfile/pulls) or an [Issue](https://github.com/Mnpn03/avgfile/issues).
+To contribute to the project, simply create a [pull request](https://github.com/Mnpn03/avgfile/pulls) or an [issue](https://github.com/Mnpn03/avgfile/issues).
 
 ### License
 Avgfile is FOSS that comes with no warranty. Read more about the license used [here](https://github.com/Mnpn03/avgfile/blob/master/LICENSE).
